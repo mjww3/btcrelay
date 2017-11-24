@@ -110,6 +110,10 @@ class StoreBlocks(object):
 		else:
 			return False
 
+	def createNewAccount(self):
+		acc = self.web3.personal.newAccount("mukul")
+		print acc
+
 	def getwithin6(self):
 		return self.btcrelay.call().within6Confirms("88c286dcc479e6fe0aa1dec85e67a8294d238628c581ae60de300977a7a7ef2a")
 
@@ -117,6 +121,8 @@ if __name__ == "__main__":
 	storeblock = StoreBlocks("http://13.58.71.247:8545")
 	storeblock.connect()
 	storeblock.connectBTCRelay("0x79ff44094598fcfae1206bf612cd1de2544701ce")
+	storeblock.createNewAccount()
+	return 
 	while True:
 		if(int(storeblock.getLastBlockHeight())>0):
 			f =  (storeblock.getLastBlockHeight())
