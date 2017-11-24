@@ -66,6 +66,7 @@ class StoreBlocks(object):
 		print (self.btcrelay)
 
 	def setInitialParent(self):
+		self.web3.personal.unlockAccount(self.address,"mukul")
 		contr = self.btcrelay.transact({"from":"0xcc80bd4c81bd5d436e6646eb65872c26a7e89bbd","gas":4500000}).setInitialParent(int("00000000b1023ec79d9591cd21498b50800b1669b5a9761b9724651c85a231a9",16),1210122,1)
 		print (contr)
 
@@ -73,6 +74,7 @@ class StoreBlocks(object):
 		print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%5"
 		print self.headers
 		print self.btcrelay.call().storeBlockHeader(self.headers.decode('hex'))
+		self.web3.personal.unlockAccount(self.address,"mukul")
 		self.btcrelay.transact({"from":"0xcc80bd4c81bd5d436e6646eb65872c26a7e89bbd"}).storeBlockHeader(self.headers.decode('hex'))
 
 	def setParams(self):
@@ -111,7 +113,7 @@ class StoreBlocks(object):
 		return self.btcrelay.call().within6Confirms("88c286dcc479e6fe0aa1dec85e67a8294d238628c581ae60de300977a7a7ef2a")
 
 if __name__ == "__main__":
-	storeblock = StoreBlocks("http://128.199.186.255:8545")
+	storeblock = StoreBlocks("http://13.58.71.247:8545")
 	storeblock.connect()
 	storeblock.connectBTCRelay("0x79ff44094598fcfae1206bf612cd1de2544701ce")
 	while True:
