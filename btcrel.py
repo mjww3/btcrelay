@@ -67,16 +67,18 @@ class StoreBlocks(object):
 
 	def setInitialParent(self):
 		self.web3.personal.unlockAccount(self.address,"mukul")
-		contr = self.btcrelay.transact({"from":"0xcc80bd4c81bd5d436e6646eb65872c26a7e89bbd","gas":4500000}).setInitialParent(int("00000000b1023ec79d9591cd21498b50800b1669b5a9761b9724651c85a231a9",16),1210122,1)
+		unlocks = self.web3.personal.unlockAccount("0x99a87f7da1e592038bfe5d54730436927511a698","mukul")
+		print unlocks
+		contr = self.btcrelay.transact({"from":"0x99a87f7da1e592038bfe5d54730436927511a698","gas":4500000}).setInitialParent(int("00000000b1023ec79d9591cd21498b50800b1669b5a9761b9724651c85a231a9",16),1210122,1)
 		print (contr)
 
 	def storeBlockHeader(self):
 		print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%5")
 		print (self.headers)
 		print (self.btcrelay.call().storeBlockHeader(self.headers.decode('hex')))
-		unlocks = self.web3.personal.unlockAccount("0xcc80bd4c81bd5d436e6646eb65872c26a7e89bbd","mukul")
+		unlocks = self.web3.personal.unlockAccount("0x99a87f7da1e592038bfe5d54730436927511a698","mukul")
 		print unlocks
-		self.btcrelay.transact({"from":"0xcc80bd4c81bd5d436e6646eb65872c26a7e89bbd"}).storeBlockHeader(self.headers.decode('hex'))
+		self.btcrelay.transact({"from":"0x99a87f7da1e592038bfe5d54730436927511a698"}).storeBlockHeader(self.headers.decode('hex'))
 
 	def setParams(self):
 		#self.version = self.json['version']
@@ -121,8 +123,6 @@ if __name__ == "__main__":
 	storeblock = StoreBlocks("http://13.58.71.247:8545")
 	storeblock.connect()
 	storeblock.connectBTCRelay("0x79ff44094598fcfae1206bf612cd1de2544701ce")
-	storeblock.createNewAccount()
-	return 
 	while True:
 		if(int(storeblock.getLastBlockHeight())>0):
 			f =  (storeblock.getLastBlockHeight())
