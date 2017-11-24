@@ -40,7 +40,7 @@ class StoreBlocks(object):
 	def fetchApi(self):
 		lastBlock = self.btcrelay.call().getLastBlockHeight()
 		self.newBlock = str(int(lastBlock)+1)
-		print "new block "+self.newBlock
+		print ("new block "+self.newBlock)
 		#self.newBlock = "400001"
 		##reply = requests.get("http://insight.coinbank.info/insight-api/block-index/"+self.newBlock)
 		while(True):
@@ -51,7 +51,7 @@ class StoreBlocks(object):
 			if reply.status_code==200:
 				self.jsonHash = reply.json()
 				self.blockHash = self.jsonHash['blockHash']
-				print self.blockHash
+				print (self.blockHash)
 				##rep= requests.get("http://insight.coinbank.info/insight-api/block/"+self.blockHash)
 				rep= requests.get("https://test-insight.bitpay.com/api/rawblock/"+self.blockHash)
 				self.json = rep.json()
@@ -71,9 +71,9 @@ class StoreBlocks(object):
 		print (contr)
 
 	def storeBlockHeader(self):
-		print "%%%%%%%%%%%%%%%%%%%%%%%%%%%%5"
-		print self.headers
-		print self.btcrelay.call().storeBlockHeader(self.headers.decode('hex'))
+		print ("%%%%%%%%%%%%%%%%%%%%%%%%%%%%5")
+		print (self.headers)
+		print (self.btcrelay.call().storeBlockHeader(self.headers.decode('hex')))
 		self.web3.personal.unlockAccount(self.address,"mukul")
 		self.btcrelay.transact({"from":"0xcc80bd4c81bd5d436e6646eb65872c26a7e89bbd"}).storeBlockHeader(self.headers.decode('hex'))
 
@@ -90,7 +90,7 @@ class StoreBlocks(object):
 		#print type(self.time)
 		#print self.json
 		self.headers = self.json['rawblock'][0:160]
-		print self.headers
+		print (self.headers)
 	def returnHeader(self):
 		self.version_le = struct.pack("<L",int(self.version))
 		self.previous_hash_le = self.previous_hash.decode("hex")[::-1]
@@ -119,10 +119,10 @@ if __name__ == "__main__":
 	while True:
 		if(int(storeblock.getLastBlockHeight())>0):
 			f =  (storeblock.getLastBlockHeight())
-			print f
+			print (f)
 			print ("::::::::::::::::::::::::::::::::::::")
 			#storeblock.getwithin6()
-			print "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"
+			print ("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
 			storeblock.fetchApi()
 			storeblock.setParams()
 			#storeblock.returnHeader()
@@ -132,7 +132,7 @@ if __name__ == "__main__":
 				logger.info("stored  "+str(f))
 				time.sleep(40)
 			else:
-				print "not ok"
+				print ("not ok")
 		else:
 			storeblock.setInitialParent()
 			time.sleep(100)
